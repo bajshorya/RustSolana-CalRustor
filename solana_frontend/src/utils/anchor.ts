@@ -4,11 +4,10 @@ import {
   type Idl,
   type AccountNamespace,
 } from "@coral-xyz/anchor";
-import { PublicKey } from "@solana/web3.js";
 import { useAnchorWallet, useConnection } from "@solana/wallet-adapter-react";
 import { CalculatorIdl } from "./idl";
 
-const PROGRAM_ID = new PublicKey("s8Ey1q88pvKmSUjU4Z1dRUmJp1HS9jHaZvGnLPhVecx");
+// const PROGRAM_ID = new PublicKey("s8Ey1q88pvKmSUjU4Z1dRUmJp1HS9jHaZvGnLPhVecx");
 
 interface CalculatorProgram extends Program {
   account: {
@@ -29,7 +28,7 @@ export const useCalculatorProgram = () => {
   });
 
   try {
-    const program = new Program(
+    const program = new Program( 
       CalculatorIdl as unknown as Idl,
       provider
     ) as unknown as CalculatorProgram;
@@ -42,5 +41,5 @@ export const useCalculatorProgram = () => {
 };
 
 export const CALCULATOR_SEEDS = [
-  new Uint8Array([99, 97, 108, 99, 117, 108, 97, 116, 111, 114]),
+  new Uint8Array([99, 97, 108, 99, 117, 108, 97, 116, 111, 114]), // "calculator"
 ];

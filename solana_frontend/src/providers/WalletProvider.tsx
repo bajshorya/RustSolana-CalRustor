@@ -1,22 +1,21 @@
-import { type FC, type ReactNode } from "react";
+import { useMemo, type FC, type ReactNode } from "react";
 import {
   ConnectionProvider,
   WalletProvider as WalletAdapterProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
+import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 interface WalletProviderProps {
   children: ReactNode;
 }
 
 export const WalletProvider: FC<WalletProviderProps> = ({ children }) => {
+  const network = WalletAdapterNetwork.Devnet;
   const endpoint = clusterApiUrl("devnet");
-  const wallets = [new PhantomWalletAdapter(), new SolflareWalletAdapter()];
+  const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], [network]);
 
   return (
     <ConnectionProvider endpoint={endpoint}>
